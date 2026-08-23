@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>&#xFEFF;</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='0' y='14'%3E🫥%3C/text%3E%3C/svg%3E" /><!-- https://stackoverflow.com/a/62438464 -->
+<style>
+</style>
+</head>
+<body>
+    <div class="main">
+        <p id="text1" class="text"><!--Total: 0--></p>
+    </div>
+<script>
+    const main = document.querySelector('div.main');
+    const text = document.getElementById('text1');
+    const settings = {
+        size: '100x100',
+        chunks: 20,
+        perChunk: 10,
+        msBetweenChunks: 3000
+        //imgStyle: 'border: 1px solid black;'
+    };
+    let chunks = 0;
+    const interval = setInterval(intervalHandler, settings.msBetweenChunks);
+    intervalHandler();
+    function intervalHandler() {
+        if (++chunks > settings.chunks) {
+            clearInterval(interval);
+            console.log('Interval cleared');
+        }
+        // text.innerHTML = `Total: ${chunks * settings.perChunk}`;
+        for (let i = 0; i < settings.perChunk; i++) {
+            const rand = Math.random();
+            const url = `https://robohash.org/${rand}?set=set5${settings.size !== undefined ? `&size=${settings.size}` : ''}`;
+            main.innerHTML += `<a href="${url}" target="_blank"><img src="${url}" ${settings.imgStyle !== undefined ? `style="${settings.imgStyle}"` : ''}/></a>`;
+        }
+    }
+/* TODO: Answer https://stackoverflow.com/questions/29017379 */
+</script>
+</body>
+</html>
